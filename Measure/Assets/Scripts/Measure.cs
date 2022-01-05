@@ -6,63 +6,63 @@ public class Measure : MonoBehaviour {
     public Transform leftController;
     public Transform rightController;
 
-    public GameObject cylinderReference;
-    private List<GameObject> cylinders;
+    public GameObject tapePrefab;
+    private List<GameObject> tapes;
 
-    private GameObject cylinderCopy;
+    private GameObject tapeCopy;
     private Vector3 initialPoint;
     private bool isLeft;
 
     void Start() {
-        cylinders = new List<GameObject>();
+        tapes = new List<GameObject>();
     }
 
     void Update() {
-        if (cylinderCopy == null) {
+        if (tapeCopy == null) {
             if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch)) {
-                foreach(GameObject go in cylinders) {
+                foreach(GameObject go in tapes) {
                     Destroy(go);
                 }
 
-                cylinders.Clear();
+                tapes.Clear();
                 return;
             }
 
             if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch)) {
                 initialPoint = leftController.position;
-                cylinderCopy = Instantiate<GameObject>(cylinderReference);
-                cylinders.Add(cylinderCopy);
+                tapeCopy = Instantiate<GameObject>(tapePrefab);
+                tapes.Add(tapeCopy);
                 isLeft = true;
             } else if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch)) {
                 initialPoint = rightController.position;
-                cylinderCopy = Instantiate<GameObject>(cylinderReference);
-                cylinders.Add(cylinderCopy);
+                tapeCopy = Instantiate<GameObject>(tapePrefab);
+                tapes.Add(tapeCopy);
                 isLeft = false;
             }
         } else {
             if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch)) {
-                Destroy(cylinderCopy);
-                cylinderCopy = null;
+                Destroy(tapeCopy);
+                tapeCopy = null;
                 return;
             }
 
             if (isLeft) {
-                UpdateCylinder(cylinderCopy, initialPoint, leftController.position);
+                UpdateTape(tapeCopy, initialPoint, leftController.position);
 
                 if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch)) {
-                    cylinderCopy = null;
+                    tapeCopy = null;
                 }
             } else {
-                UpdateCylinder(cylinderCopy, initialPoint, rightController.position);
+                UpdateTape(tapeCopy, initialPoint, rightController.position);
 
                 if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch)) {
-                    cylinderCopy = null;
+                    tapeCopy = null;
                 }
             }
         }
     }
 
-    private void UpdateCylinder(GameObject reference, Vector3 initial, Vector3 final) {
+    private void UpdateTape(GameObject reference, Vector3 initial, Vector3 final) {
         float distance = Vector3.Distance(initial, final);
 
         foreach (Transform child in reference.transform) {
@@ -87,8 +87,6 @@ public class Measure : MonoBehaviour {
                 UpdateDistanceLabel(child.gameObject, distance);
             }
         }
-
-        reference.SetActive(true);
     }
 
     private void UpdateDistanceLabel(GameObject canvas, float distance) {
