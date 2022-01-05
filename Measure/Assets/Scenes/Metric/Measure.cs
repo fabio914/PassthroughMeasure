@@ -73,17 +73,26 @@ public class Measure : MonoBehaviour {
 
                 child.transform.position = initial;
                 child.transform.LookAt(final);
-            } else if (child.name == "Canvas") {
+            } else if (child.name == "FrontCanvas") {
                 child.transform.position = initial + (final - initial)/2.0f;
                 child.transform.LookAt(final);
                 child.transform.Rotate(0.0f, -90.0f, 0.0f, Space.Self);
                 child.transform.Translate(0.0f, 0.075f, 0.0f, Space.Self);
-
-                UnityEngine.UI.Text label = child.gameObject.GetComponentInChildren<UnityEngine.UI.Text>();
-                label.text = $"{(int)System.Math.Floor(distance * 100.0f)} cm";
+                UpdateDistanceLabel(child.gameObject, distance);
+            } else if (child.name == "BackCanvas") {
+                child.transform.position = initial + (final - initial)/2.0f;
+                child.transform.LookAt(final);
+                child.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+                child.transform.Translate(0.0f, 0.075f, 0.0f, Space.Self);
+                UpdateDistanceLabel(child.gameObject, distance);
             }
         }
 
         reference.SetActive(true);
+    }
+
+    private void UpdateDistanceLabel(GameObject canvas, float distance) {
+        UnityEngine.UI.Text label = canvas.GetComponentInChildren<UnityEngine.UI.Text>();
+        label.text = $"{(int)System.Math.Floor(distance * 100.0f)} cm";
     }
 }
