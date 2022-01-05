@@ -17,7 +17,7 @@ public class Measure : MonoBehaviour {
         tapes = new List<GameObject>();
     }
 
-    void Update() {
+    void LateUpdate() {
         if (tapeCopy == null) {
             if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch)) {
                 foreach(GameObject go in tapes) {
