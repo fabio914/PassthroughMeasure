@@ -19,7 +19,7 @@ Use your Oculus Quest 2 with Passthrough as a tape measure. Keep in mind that th
 
 - Follow [these instructions](https://sidequestvr.com/setup-howto) to install SideQuest and setup your Oculus Quest 2 for development.
 
-- [Download the latest APK](https://github.com/fabio914/PassthroughMeasure/releases/download/0.1/measure.apk).
+- [Download the latest APK](https://github.com/fabio914/PassthroughMeasure/releases/latest/download/measure.apk).
 
 - Connect your Oculus Quest to your computer, launch SideQuest and drag the APK to the top left corner of SideQuest to install it.
 
